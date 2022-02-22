@@ -1,6 +1,6 @@
 import { API_ENDPOINT } from "./constants.ts";
 import { NotFoundError, UnknownError } from "./errors.ts";
-import { getIfExists } from "./cache.ts";
+import { Cache } from "./cache.ts";
 
 type Definition = {
   definition: string;
@@ -30,15 +30,16 @@ export type DefinitionRecord = {
 const makeUrl = (word: string) => `${API_ENDPOINT}/${word}`;
 
 export async function lookup(
+  cache: Cache,
   word: string,
 ): Promise<{
   data: DefinitionRecord[];
   fromCache: boolean;
 }> {
-  const cache = await getIfExists(word);
-  if (cache != null) {
+  const data = await cache.getIfExists();
+  if (data != null) {
     return {
-      data: cache,
+      data,
       fromCache: true,
     };
   }

@@ -11,7 +11,7 @@ import {
   unknownutil,
 } from "./deps.ts";
 import { DefinitionRecord, lookup } from "./dictionary.ts";
-import { clean, save } from "./cache.ts";
+import { Cache } from "./cache.ts";
 import { NvimDictBaseError } from "./errors.ts";
 
 export async function main(denops: Denops): Promise<void> {
@@ -27,7 +27,9 @@ export async function main(denops: Denops): Promise<void> {
     },
 
     async cleanCache() {
-      await clean();
+      const cacheDir = await _cacheDir();
+      const cache = new Cache(cacheDir, "");
+      await cache.clean();
       await helper.echo(denops, "succesufully removed the cached data");
     },
   };
@@ -44,12 +46,18 @@ export async function main(denops: Denops): Promise<void> {
     );
   });
 
+  const _cacheDir = async (): Promise<string> =>
+    await nvimFn.stdpath(denops, "cache") as string;
+
   const run = async (denops: Denops, text: string) => {
-    const { data, fromCache } = await lookup(text);
+    const cacheDir = await _cacheDir();
+    const cache = new Cache(cacheDir, text);
+
+    const { data, fromCache } = await lookup(cache, text);
     await openBuffer(denops, text);
     await show(denops, data);
     if (!fromCache) {
-      await save(text, data);
+      await cache.save(data);
     }
   };
 
