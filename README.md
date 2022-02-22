@@ -11,7 +11,7 @@ A neovim dictionary plugin.
 - NeoVim v0.6.1
 - macOS Big Sur v11.3.1
 
-Since the plugin uses neovim specific apis, it does not work in vim. (haven't tested yet)
+Since the plugin uses neovim specific apis, it does not work in vim. 
 
 ## Notice 
 
@@ -20,6 +20,16 @@ This plugin is developed to just serve for my usecases, hence very limited in it
 (feature requests and pull requests will be welcomed)
 
 ## Features
+
+### commands: 
+
+- `NDSearch`: search definitions of a word.
+- `NDCleanCache`: remove cached data.
+
+### keymaps:
+
+- `<Leader>d`: run `NDSearch` for the word under the cursor.
+
 
 ### dictionary
 
@@ -33,8 +43,4 @@ Since the plugin always uses cached data if the file exists, you should remove c
 
 `NDCleanCache` command removes the entire cache directory and at the time, the plugin does not provide functions to partially remove/update cached data. If you need to do this, you can by removing files from the cache directory manually.
 
-### commands: 
-
-- `NDSearch`: search definitions of a word.
-- `NDCleanCache`: remove cache
 
