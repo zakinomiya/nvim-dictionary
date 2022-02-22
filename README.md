@@ -1,4 +1,6 @@
-neovim dictionary plugin.
+# :book: Nvim Dictionary
+
+A neovim dictionary plugin.
 
 ## Dependencies 
 
