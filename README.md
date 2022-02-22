@@ -37,7 +37,7 @@ This plugin is developed to just serve for my usecases, hence very limited in it
 
 ### caching
 
-`NvimDictionary` caches definitions as json file word by word in `denops/nvim_dictionary/history` when words are fetched via api for the first time. 
+`NvimDictionary` caches definitions as json file word by word in `<NVIM_STD_CACHE_DIR>/nvim-dictionary/history` when words are fetched via api for the first time. 
 
 Since the plugin always uses cached data if the file exists, you should remove cache and run the search command again if you would like to update definition of specific words. 
 
